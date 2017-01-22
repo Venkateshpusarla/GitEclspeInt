@@ -25,6 +25,8 @@ public class GameTest {
 		winner.setPlayerOwn(player1);
 		assertEquals(winner, board1.diagonalWinnerSearch());
 		
+		System.out.println("added some info into gametest file");
+		
 
 		TicTacToeBoard board2 = new TicTacToeBoard(3);
 		Players player2 = new Players("Ram", "0");
