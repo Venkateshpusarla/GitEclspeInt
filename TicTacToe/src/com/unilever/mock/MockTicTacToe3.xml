@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mockTicTacToe>
+	<matSize>3/3</matSize>
+	<noOfPlayer>3</noOfPlayer>
+	<playersdetails>
+		<playerDetail>
+			<playerSymbol>x</playerSymbol>
+			<playerName>P1</playerName>
+		</playerDetail>
+		<playerDetail>
+			<playerSymbol>y</playerSymbol>
+			<playerName>P2</playerName>
+		</playerDetail>
+		<playerDetail>
+			<playerSymbol>z</playerSymbol>
+			<playerName>P3</playerName>
+		</playerDetail>
+	</playersdetails>
+	<mock>
+		<position value="0">
+			<player value="P1">
+				<xcod>0</xcod>
+				<ycod>0</ycod>
+			</player>
+			<player value="P2">
+				<xcod>0</xcod>
+				<ycod>1</ycod>
+			</player>
+			<player value="P3">
+				<xcod>0</xcod>
+				<ycod>2</ycod>
+			</player>
+		</position>
+		<position value="1">
+			<player value="P1">
+				<xcod>0</xcod>
+				<ycod>1</ycod>
+			</player>
+			<player value="P2">
+				<xcod>0</xcod>
+				<ycod>2</ycod>
+			</player>
+			<player value="P3">
+				<xcod>1</xcod>
+				<ycod>0</ycod>
+			</player>
+		</position>
+		<position value="2">
+			<player value="P1">
+				<xcod>0</xcod>
+				<ycod>2</ycod>
+			</player>
+			<player value="P2">
+				<xcod>1</xcod>
+				<ycod>0</ycod>
+			</player>
+			<player value="P3">
+				<xcod>1</xcod>
+				<ycod>1</ycod>
+			</player>
+		</position>
+		<position value="3">
+			<player value="P1">
+				<xcod>1</xcod>
+				<ycod>0</ycod>
+			</player>
+			<player value="P2">
+				<xcod>1</xcod>
+				<ycod>1</ycod>
+			</player>
+			<player value="P3">
+				<xcod>1</xcod>
+				<ycod>2</ycod>
+			</player>
+		</position>
+		<position value="4">
+			<player value="P1">
+				<xcod>1</xcod>
+				<ycod>1</ycod>
+			</player>
+			<player value="P2">
+				<xcod>1</xcod>
+				<ycod>2</ycod>
+			</player>
+			<player value="P3">
+				<xcod>2</xcod>
+				<ycod>0</ycod>
+			</player>
+		</position>
+		<position value="5">
+			<player value="P1">
+				<xcod>1</xcod>
+				<ycod>2</ycod>
+			</player>
+			<player value="P2">
+				<xcod>2</xcod>
+				<ycod>0</ycod>
+			</player>
+			<player value="P3">
+				<xcod>2</xcod>
+				<ycod>1</ycod>
+			</player>
+		</position>
+		<position value="6">
+			<player value="P1">
+				<xcod>2</xcod>
+				<ycod>0</ycod>
+			</player>
+			<player value="P2">
+				<xcod>2</xcod>
+				<ycod>1</ycod>
+			</player>
+			<player value="P3">
+				<xcod>2</xcod>
+				<ycod>2</ycod>
+			</player>
+		</position>
+		<position value="7">
+			<player value="P1">
+				<xcod>2</xcod>
+				<ycod>1</ycod>
+			</player>
+			<player value="P2">
+				<xcod>2</xcod>
+				<ycod>2</ycod>
+			</player>
+			<player value="P3">
+				<xcod>0</xcod>
+				<ycod>0</ycod>
+			</player>
+		</position>
+		<position value="8">
+			<player value="P1">
+				<xcod>2</xcod>
+				<ycod>2</ycod>
+			</player>
+			<player value="P2">
+				<xcod>1</xcod>
+				<ycod>0</ycod>
+			</player>
+			<player value="P3">
+				<xcod>1</xcod>
+				<ycod>1</ycod>
+			</player>
+		</position>
+	</mock>
+</mockTicTacToe>

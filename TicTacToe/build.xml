@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TicTacToe" default="build.jars" basedir=".">
+
+	<property name="p2.build.repo" value="file:${buildDirectory}/buildRepo"/>
+	<property name="basews" value="${ws}"/>
+	<property name="baseos" value="${os}"/>
+	<property name="basearch" value="${arch}"/>
+	<property name="basenl" value="${nl}"/>
+	<property name="bundleId" value="TicTacToe"/>
+	<property name="bundleVersion" value="1.0.0.201701221316"/>
+	<property name="p2.publishonerror" value="false"/>
+
+	<!-- Compiler settings. -->
+	<property name="javacFailOnError" value="false"/>
+	<property name="javacDebugInfo" value="on"/>
+	<property name="javacVerbose" value="false"/>
+	<property name="logExtension" value=".log"/>
+	<property name="compilerArg" value=""/>
+	<property name="compilation.prereq.log" value="${buildDirectory}/prereqErrors.log"/>
+	<property name="javacSource" value="1.3"/>
+	<property name="javacTarget" value="1.2"/>
+	<condition property="dir_bootclasspath" value="${java.home}/../Classes">
+		<and>
+			<os family="mac"/>
+			<available file="${java.home}/../Classes" type="dir"/>
+		</and>
+	</condition>
+	<property name="dir_bootclasspath" value="${java.home}/lib"/>
+	<path id="path_bootclasspath">
+		<fileset dir="${dir_bootclasspath}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	<property name="bootclasspath" refid="path_bootclasspath"/>
+	<property name="bundleJavacSource" value="${javacSource}"/>
+	<property name="bundleJavacTarget" value="${javacTarget}"/>
+	<property name="bundleBootClasspath" value="${bootclasspath}"/>
+
+	<target name="init" depends="properties">
+		<condition property="pluginTemp" value="${buildTempFolder}/plugins"		>
+			<isset property="buildTempFolder"/>
+		</condition>
+		<property name="pluginTemp" value="${basedir}"/>
+		<condition property="build.result.folder" value="${pluginTemp}/TicTacToe_1.0.0.201701221316"		>
+			<isset property="buildTempFolder"/>
+		</condition>
+		<property name="build.result.folder" value="${basedir}"/>
+		<property name="temp.folder" value="${basedir}/temp.folder"/>
+		<property name="plugin.destination" value="${basedir}"/>
+		<condition property="p2.publish.parts" value="true"		>
+			<istrue value="${p2.gathering}"/>
+		</condition>
+		<property name="compilation.problem.marker" value="${build.result.folder}/compilation.problem"/>
+		<condition property="compilation.problem.marker.exists" value="true"		>
+			<and>
+			<available file="${compilation.problem.marker}"/>
+			<isfalse value="${p2.publishonerror}"/>
+			</and>
+		</condition>
+	</target>
+
+	<target name="properties" if="eclipse.running">
+		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+
+	</target>
+
+	<target name="build.update.jar" depends="init" description="Build the plug-in: TicTacToe for an update site.">
+		<delete dir="${temp.folder}"/>
+		<mkdir dir="${temp.folder}"/>
+		<antcall target="build.jars"/>
+		<antcall target="gather.bin.parts">
+			<param name="destination.temp.folder" value="${temp.folder}/"/>
+		</antcall>
+		<jar destfile="${plugin.destination}/TicTacToe_1.0.0.201701221316.jar" basedir="${temp.folder}/TicTacToe_1.0.0.201701221316" filesetmanifest="merge"/>
+		<delete dir="${temp.folder}"/>
+	</target>
+
+	<target name="TicTacToe.jar.nestedJars">
+	</target>
+	<target name="TicTacToe.jar" depends="init,TicTacToe.jar.nestedJars" unless="TicTacToe.jar" description="Create jar: TicTacToe TicTacToe.jar.">
+		<delete dir="${temp.folder}/TicTacToe.jar.bin"/>
+		<mkdir dir="${temp.folder}/TicTacToe.jar.bin"/>
+		<path id="TicTacToe.jar.classpath">
+			<pathelement path="hamcrest-core-1.3.jar"/>
+			<pathelement path="${build.result.folder}/../TicTacToe_1.0.0.201701221316/hamcrest-core-1.3.jar"/>
+			<pathelement path="junit4-4.8.2.jar"/>
+			<pathelement path="${build.result.folder}/../TicTacToe_1.0.0.201701221316/junit4-4.8.2.jar"/>
+		</path>
+		<!-- compile the source code -->
+		<javac destdir="${temp.folder}/TicTacToe.jar.bin" failonerror="${javacFailOnError}" verbose="${javacVerbose}" debug="${javacDebugInfo}" includeAntRuntime="no" bootclasspath="${bundleBootClasspath}" source="${bundleJavacSource}" target="${bundleJavacTarget}"		>
+			<compilerarg line="${compilerArg}" compiler="${build.compiler}"/>
+			<classpath refid="TicTacToe.jar.classpath" />
+			<src path="src/"			/>
+			<compilerarg line="-log &apos;${temp.folder}/TicTacToe.jar.bin${logExtension}&apos;" compiler="org.eclipse.jdt.core.JDTCompilerAdapter"			/>
+		</javac>
+		<antcall target="checkCompilationResults"/>
+		<!-- Copy necessary resources -->
+		<copy todir="${temp.folder}/TicTacToe.jar.bin" failonerror="true" overwrite="false">
+			<fileset dir="src/">
+				<exclude name="**/*.java"/>
+				<exclude name="**/package.htm*"/>
+			</fileset>
+		</copy>
+		<mkdir dir="${build.result.folder}"/>
+		<jar destfile="${build.result.folder}/TicTacToe.jar" basedir="${temp.folder}/TicTacToe.jar.bin"/>
+		<delete dir="${temp.folder}/TicTacToe.jar.bin"/>
+	</target>
+
+	<target name="TicTacToesrc.zip" depends="init" unless="TicTacToesrc.zip">
+		<mkdir dir="${build.result.folder}"/>
+		<antcall target="zip.TicTacToesrc.zip"/>
+	</target>
+	<target name="zip.TicTacToesrc.zip">
+		<zip destfile="${build.result.folder}/TicTacToesrc.zip" filesonly="false" whenempty="skip" update="false">
+			<fileset dir="src/">
+				<include name="**/*.java"/>
+			</fileset>
+		</zip>
+	</target>
+	<target name="copy.TicTacToesrc.zip">
+		<copy todir="${source.destination.folder}/TicTacToesrc" failonerror="true" overwrite="true">
+			<fileset dir="src/">
+				<include name="**/*.java"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="build.jars" depends="init" description="Compile classes and build nested jars for the plug-in: TicTacToe.">
+		<delete file="${compilation.problem.marker}" quiet="true"/>
+		<available property="TicTacToe.jar" file="${build.result.folder}/TicTacToe.jar"/>
+		<antcall target="TicTacToe.jar"/>
+	</target>
+
+	<target name="checkCompilationResults" if="compilation.error.occured">
+		<echo file="${compilation.problem.marker}" message="TicTacToe_1.0.0.201701221316${line.separator}compilation.error.occured=${compilation.error.occured}"/>
+		<eclipse.logCompileError bundle="TicTacToe_1.0.0.201701221316" log="${compilation.prereq.log}">
+		</eclipse.logCompileError>
+	</target>
+
+	<target name="build.sources" depends="init">
+		<available property="TicTacToesrc.zip" file="${build.result.folder}/TicTacToesrc.zip"/>
+		<antcall target="TicTacToesrc.zip"/>
+	</target>
+
+	<target name="publish.bin.parts" depends="init" if="p2.publish.parts" unless="compilation.problem.marker.exists">
+		<mkdir dir="${build.result.folder}/TicTacToe_1.0.0.201701221316"/>
+		<copy todir="${build.result.folder}" failonerror="true" overwrite="true">
+			<fileset dir="${basedir}">
+				<include name="META-INF/MANIFEST.MF"/>
+				<include name="plugin.xml"/>
+				<include name="fragment.xml"/>
+			</fileset>
+		</copy>
+		<eclipse.versionReplacer path="${build.result.folder}" version="1.0.0.201701221316"/>
+		<antcall target="apitools.generation">
+			<param name="target.folder" value="${build.result.folder}"/>
+			<param name="projectLocation" value="${basedir}"/>
+			<param name="binary.folders" value="${build.result.folder}/TicTacToe.jar"/>
+			<param name="projectName" value="${bundleId}_${bundleVersion}"/>
+		</antcall>
+		<eclipse.gatherBundle 
+		   metadataRepository="${p2.build.repo}"
+		   artifactRepository="${p2.build.repo}"
+		   buildResultFolder="${build.result.folder}"
+		   baseDirectory="${basedir}"
+		/>
+	</target>
+
+	<target name="gather.bin.parts" depends="init" if="destination.temp.folder">
+		<mkdir dir="${destination.temp.folder}/TicTacToe_1.0.0.201701221316"/>
+		<copy todir="${destination.temp.folder}/TicTacToe_1.0.0.201701221316" failonerror="true" overwrite="false">
+			<fileset dir="${build.result.folder}">
+				<include name="TicTacToe.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="${destination.temp.folder}/TicTacToe_1.0.0.201701221316" failonerror="true" overwrite="true">
+			<fileset dir="${basedir}">
+				<include name="META-INF/"/>
+				<include name="hamcrest-core-1.3.jar"/>
+				<include name="junit4-4.8.2.jar"/>
+				<include name="TicTacToe.jar"/>
+			</fileset>
+		</copy>
+		<eclipse.versionReplacer path="${destination.temp.folder}/TicTacToe_1.0.0.201701221316" version="1.0.0.201701221316"/>
+		<antcall target="apitools.generation">
+			<param name="target.folder" value="${destination.temp.folder}/TicTacToe_1.0.0.201701221316"/>
+			<param name="projectLocation" value="${basedir}"/>
+			<param name="binary.folders" value="${destination.temp.folder}/TicTacToe_1.0.0.201701221316/TicTacToe.jar"/>
+			<param name="projectName" value="${bundleId}_${bundleVersion}"/>
+		</antcall>
+	</target>
+
+	<target name="build.zips" depends="init">
+	</target>
+
+	<target name="gather.sources" depends="init" if="destination.temp.folder">
+		<mkdir dir="${destination.temp.folder}/TicTacToe_1.0.0.201701221316"/>
+		<copy file="${build.result.folder}/TicTacToesrc.zip" todir="${destination.temp.folder}/TicTacToe_1.0.0.201701221316" failonerror="false" overwrite="false"/>
+		<antcall target="copy.src.includes">
+			<param name="source.destination.folder" value="${destination.temp.folder}/TicTacToe_1.0.0.201701221316"/>
+		</antcall>
+	</target>
+
+	<target name="gather.individual.sources" depends="init">
+		<antcall target="copy.TicTacToesrc.zip">
+			<param name="source.destination.folder" value="${destination.temp.folder}"/>
+		</antcall>
+		<antcall target="copy.src.includes">
+			<param name="source.destination.folder" value="${destination.temp.folder}"/>
+		</antcall>
+	</target>
+
+	<target name="copy.src.includes" depends="init">
+	</target>
+
+	<target name="gather.logs" depends="init" if="destination.temp.folder">
+		<mkdir dir="${destination.temp.folder}/TicTacToe_1.0.0.201701221316"/>
+		<copy todir="${destination.temp.folder}/TicTacToe_1.0.0.201701221316" failonerror="false" overwrite="false">
+			<fileset dir="${temp.folder}">
+				<include name="TicTacToe.jar.bin${logExtension}"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean" depends="init" description="Clean the plug-in: TicTacToe of all the zips, jars and logs created.">
+		<delete file="${build.result.folder}/TicTacToe.jar"/>
+		<delete file="${build.result.folder}/TicTacToesrc.zip"/>
+		<delete file="${plugin.destination}/TicTacToe_1.0.0.201701221316.jar"/>
+		<delete file="${plugin.destination}/TicTacToe_1.0.0.201701221316.zip"/>
+		<delete dir="${temp.folder}"/>
+		<delete file="${compilation.problem.marker}" quiet="true"/>
+	</target>
+
+	<target name="refresh" depends="init" if="eclipse.running" description="Refresh this folder.">
+		<eclipse.convertPath fileSystemPath="E:/excel sheets/TicTacToe" property="resourcePath"/>
+		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite"/>
+	</target>
+
+	<target name="zip.plugin" depends="init" description="Create a zip containing all the elements for the plug-in: TicTacToe.">
+		<delete dir="${temp.folder}"/>
+		<mkdir dir="${temp.folder}"/>
+		<antcall target="build.jars"/>
+		<antcall target="build.sources"/>
+		<antcall target="gather.bin.parts">
+			<param name="destination.temp.folder" value="${temp.folder}/"/>
+		</antcall>
+		<antcall target="gather.sources">
+			<param name="destination.temp.folder" value="${temp.folder}/"/>
+		</antcall>
+		<delete>
+			<fileset dir="${temp.folder}">
+				<include name="**/*.bin${logExtension}"/>
+			</fileset>
+		</delete>
+		<zip destfile="${plugin.destination}/TicTacToe_1.0.0.201701221316.zip" basedir="${temp.folder}" filesonly="true" whenempty="skip" update="false"/>
+		<delete dir="${temp.folder}"/>
+	</target>
+
+	<target name="apitools.generation" if="generateAPIDescription">
+		<apitooling.apigeneration  projectName="${projectName}" project="${projectLocation}" binary="${binary.folders}" target="${target.folder}" extramanifests="${extraManifests}" allownonapiproject="${allowNonApiProject}"		/>
+	</target>
+
+</project>

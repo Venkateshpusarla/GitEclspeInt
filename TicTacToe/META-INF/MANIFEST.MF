@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: TicTacToe
+Bundle-SymbolicName: TicTacToe
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: TicTacToe.jar,
+ hamcrest-core-1.3.jar,
+ junit4-4.8.2.jar
+Export-Package: com.unilever.junit,
+ com.unilever.mock,
+ com.unilever.view
