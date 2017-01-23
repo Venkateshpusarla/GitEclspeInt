@@ -4,6 +4,7 @@ public class Coordinate {
 	private Integer xAxis;
 	private Integer yAxis;
 	
+	
 	public Coordinate(Integer xAxis, Integer yAxis) {
 		this.xAxis = xAxis;
 		this.yAxis = yAxis;
