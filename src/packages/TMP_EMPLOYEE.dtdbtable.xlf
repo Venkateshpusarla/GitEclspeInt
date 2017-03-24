@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff version="1.1">
+<file original="self" source-language="en" product-name="@@263880a0380d4588229986eeb6900cd1DtDbTable:TMP_EMPLOYEE[]" datatype="s2x">
+<header>
+<skl>
+</skl>
+<phase-group>
+</phase-group>
+<s2x xmlns="http://www.sap.com">
+<dtr>
+<sc></sc>
+</dtr>
+<giltDirectives>
+<develContact>user</develContact><domain></domain>
+<originalLocale xml:lang="en"/>
+<maxLength>255</maxLength>
+</giltDirectives>
+<state phase-name="" process-name="">started</state>
+</s2x>
+</header>
+<body>
+<group restype="description">
+<trans-unit id="0555bd4cad3347492ce180efbc543cd3" resname="@description" maxwidth="255" translate="yes"><source>TMP_EMPLOYEE</source><s2x xmlns="http://www.sap.com"><textState>new</textState><recommendedLength chars="-1"/></s2x></trans-unit>
+</group>
+</body>
+</file>
+</xliff>

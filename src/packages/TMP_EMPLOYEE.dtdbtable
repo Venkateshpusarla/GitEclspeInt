@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MetaDataAPI generated on: Wednesday, March 23, 2016 8:31:56 PM CET -->
+<DtDbTable xmlns="http://xml.sap.com/2002/10/metamodel/dictionary" xmlns:IDX="urn:sap.com:DtDictionary.DtDbTable:2.0" mmRelease="6.30" mmVersion="2.0" mmTimestamp="1458761516152" name="TMP_EMPLOYEE" package="" masterLanguage="en">
+	<DtStructure.StructureElements>
+		<DtField builtInType="string" jdbcTypeName="VARCHAR" length="10" name="EMP_ID" notNull="true" position="0">
+			<DtField.ReferencedType>
+				<Core.Reference package="com.sap.dictionary" name="string" type="DtSimpleType"/>
+			</DtField.ReferencedType>
+		</DtField>
+		<DtField builtInType="string" jdbcTypeName="VARCHAR" length="20" name="EMP_NAME" notNull="false" position="1">
+			<DtField.ReferencedType>
+				<Core.Reference package="com.sap.dictionary" name="string" type="DtSimpleType"/>
+			</DtField.ReferencedType>
+		</DtField>
+	</DtStructure.StructureElements>
+	<DtDbTable.PrimaryKey>
+		<DtPrimaryKey name="PrimaryKey">
+			<DtPrimaryKey.KeyElements>
+				<Core.Reference path="StructureElement:EMP_ID"/>
+			</DtPrimaryKey.KeyElements>
+		</DtPrimaryKey>
+	</DtDbTable.PrimaryKey>
+</DtDbTable>
